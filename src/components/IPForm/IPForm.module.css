@@ -1,0 +1,40 @@
+.header {
+  background-color: rgb(251,	58,	8	);
+  background-image: linear-gradient(to right, rgb(251,	58,	8	), rgb(253	143	67));
+  color: rgb(255,255,255);
+  width: 100%;
+  height: 8em;
+  top: 0;
+  left: 0;
+  padding: 3em 5em;
+  display: flex;
+  align-items: center;
+}
+
+.headerText {
+  text-align: left;
+  font-family: Poppins, sans-serif;
+  line-height: 1.375;
+}
+
+.instructions {
+  text-align: left;
+  padding: .25em 0em 0em;
+  font-weight: 500;
+  font-family: Poppins, sans-serif;
+  line-height: 1.375; 
+  font-size: 1.25em;
+  display: block;
+  font-style: italic;
+}
+
+.ipAddressForm {
+  display: flex;
+  flex-direction: row;
+  padding: .25em 0;
+  align-items: start;
+}
+
+.body {
+  padding: 1em 5em;
+}
