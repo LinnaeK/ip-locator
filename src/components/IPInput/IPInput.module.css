@@ -1,0 +1,22 @@
+.ipInput {
+  height: 2.5em;
+  width: 20em;
+  margin: 1em 0;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 1.375em;
+  padding: .625rem 2rem;
+  outline: none;
+}
+
+input[type="text"] {
+  font-family: Poppins, sans-serif;
+  line-height: 1.375; 
+  font-size: 1.25em;
+  letter-spacing: .1em;
+  color: rgb(70, 67, 67)
+}
+
+.ipInput:focus {
+  outline: none important!;
+  border: 2px solid rgb(0	0	0);
+}
