@@ -1,7 +1,6 @@
 import locationData from '../data/GeoLite2-City-Blocks-IPv4.json'
 
 const getLocation = function(IPAddress) {
-  console.log('ipAddress', IPAddress)
   const IPAddressArray = IPAddress.split(/[./]/)
 
   return new Promise(function(resolve, reject) {
@@ -9,16 +8,12 @@ const getLocation = function(IPAddress) {
     const binarySearch = (startPos, endPos) => {
       // check base case
       if(startPos>endPos) {
-        console.log('startPos/endPos base case met')
         return(null)
       }
 
       // Determine middle pos and create array
       const middlePos = Math.floor((startPos+endPos)/2)
       const middleIPAddressArray = locationData.results[middlePos].network.split(/[./]/)
-
-      console.log('middleIPAddressArray', middleIPAddressArray, 'ipAddress', IPAddressArray)
-
 
       // Check to see if there is a match
       if(
@@ -28,7 +23,6 @@ const getLocation = function(IPAddress) {
         middleIPAddressArray[3]===IPAddressArray[3]&&
         middleIPAddressArray[4]===IPAddressArray[4]
       ) {
-        console.log('match found', {longitude: locationData.results[middlePos].longitude, latitude: locationData.results[middlePos].latitude})
         return {longitude: locationData.results[middlePos].longitude, latitude: locationData.results[middlePos].latitude}
         // return middlePos
       } else if(middleIPAddressArray[0]<IPAddressArray[0]) {
@@ -55,7 +49,6 @@ const getLocation = function(IPAddress) {
     }
     
     const location = binarySearch(0, locationData.results.length-1);
-    console.log('location', location)
     if(location) {
       resolve(location)
     } else {
