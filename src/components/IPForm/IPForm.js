@@ -11,25 +11,34 @@ class IPForm extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.state = {
       IPAddress: '',
-      isLoading: false,
       longitude: 0,
-      latitude: 0
+      latitude: 0, 
+      hasLoadedData: false,
+      hasRetrievalError: false,
+      hasInputError: false
     }
   }
 
   handleSubmit = async (event) => {
     event.preventDefault()
-    this.setState({isLoading: true})
-    try {
-      const response = await getLocation(this.state.IPAddress)
-      console.log('longitude, latitude', response)
+    if(this.state.IPAddress.match(/\b(?:(?:2(?:[0-4][0-9]|5[0-5])|[0-1]?[0-9]?[0-9])\.){3}(?:(?:2([0-4][0-9]|5[0-5])|[0-1]?[0-9]?[0-9]))(\/(([3]?[0-2])|([0-2]?[0-9])))?\b/)){
+      try {
+        const response = await getLocation(this.state.IPAddress)
+        this.setState({
+          longitude: response.longitude,
+          latitude: response.latitude,
+          hasLoadedData: true
+        })
+      } catch(error) {
+        this.setState({
+          hasRetrievalError: true
+        })
+        console.error('error in handleSubmit', error)
+      }
+    } else {
       this.setState({
-        isLoading: false,
-        longitude: response.longitude,
-        latitude: response.latitude
+        hasInputError: true
       })
-    } catch(error) {
-      console.log('error in handleSubmit', error)
     }
   }
 
@@ -42,6 +51,9 @@ class IPForm extends React.Component {
       IPAddress: '',
       longitude: 0,
       latitude: 0,
+      hasLoadedData: false,
+      hasRetrievalError: false,
+      hasInputError: false
     })
   }
 
@@ -59,11 +71,21 @@ class IPForm extends React.Component {
               onChange={this.handleChange}
               onFocus={this.handleFocus}
             />
-            <SubmitBtn isLoading={this.state.isLoading}/>
+            <SubmitBtn />
           </form>
-          {!this.state.isLoading && !!this.state.longitude && <div className={styles.instructions}> 
+          {
+          this.state.hasLoadedData && !!this.state.longitude && <div className={styles.instructions}> 
             The IP Address: {this.state.IPAddress} is located at: {Math.abs(this.state.latitude)}° {this.state.latitude>0 ? 'N' : 'S'}, {Math.abs(this.state.longitude)}°  {this.state.longitude > 0 ? 'E' : 'W'}
-            </div>}
+            </div>
+          }{
+          this.state.hasRetrievalError && <div className={styles.instructions}>
+            Sorry, we could not find any records of the IP Address {this.state.IPAddress}. 
+          </div>
+          }{
+            this.state.hasInputError && <div className={styles.error}>
+              Please enter a valid IP Address.
+            </div>
+          }
         </main>
       </div>
     )

@@ -32,9 +32,21 @@
   display: flex;
   flex-direction: row;
   padding: .25em 0;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .body {
   padding: 1em 5em;
+}
+
+.error {
+  color: rgb(187, 80, 80);
+  text-align: left;
+  padding: .25em 0em 0em;
+  font-weight: 700;
+  font-family: Poppins, sans-serif;
+  line-height: 1.375; 
+  font-size: 1.25em;
+  display: block;
+  font-style: italic;
 }
