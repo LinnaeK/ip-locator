@@ -1,16 +1,13 @@
 import styles from './SubmitBtn.module.css'
 
-const SubmitBtn = function (props) {
+const SubmitBtn = function () {
   return (
     <div className={styles.btnContainer}>
       <button 
         type="submit"
         className={styles.submitBtn}
       >
-        {props.isLoading ?
-          'Loading' :
-          'Submit'
-        }
+        Submit
       </button>
     </div>
   )
